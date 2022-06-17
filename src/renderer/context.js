@@ -1,7 +1,7 @@
 import {
   createSVGElement,
   mount
-} from "./util";
+} from "./utils";
 
 export function createContext(width, height) {
   const svg = createSVGElement('svg');
