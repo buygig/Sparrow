@@ -1,14 +1,7 @@
+import { createContext } from './context';
 import {
-  createContext
-} from "./context";
-import {
-  line,
-  circle,
-  text,
-  rect,
-  path,
-  ring,
-} from "./shape";
+  line, circle, text, rect, path, ring,
+} from './shape';
 
 export function createRenderer(width, height) {
   const context = createContext(width, height);
@@ -18,6 +11,6 @@ export function createRenderer(width, height) {
     text: (options) => text(context, options),
     rect: (options) => rect(context, options),
     path: (options) => path(context, options),
-    ring: (options) => ring(context, options)
-  }
+    ring: (options) => ring(context, options),
+  };
 }

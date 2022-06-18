@@ -1,19 +1,11 @@
-import {
-  applyAttrubutes,
-  createSVGElement,
-  mount
-} from "./utils";
+import { applyAttrubutes, createSVGElement, mount } from './utils';
 
 export function shape(type, context, attributes) {
-  const {
-    group
-  } = context;
-
+  const { group } = context;
   const el = createSVGElement(type);
   applyAttrubutes(el, attributes);
-
   mount(group, el);
-  return el
+  return el;
 }
 
 export function line(context, attributes) {
@@ -22,19 +14,15 @@ export function line(context, attributes) {
 
 export function rect(context, attributes) {
   const {
-    width,
-    height,
-    x,
-    y,
+    width, height, x, y,
   } = attributes;
-
   return shape('rect', context, {
     ...attributes,
     width: Math.abd(width),
     height: Math.abs(height),
     x: width > 0 ? x : x + width,
-    y: height > 0 ? y : y + height
-  })
+    y: height > 0 ? y : y + height,
+  });
 }
 
 export function circle(context, attributes) {
@@ -42,10 +30,7 @@ export function circle(context, attributes) {
 }
 
 export function text(context, attributes) {
-  const {
-    text,
-    ...rest
-  } = attributes;
+  const { text, ...rest } = attributes;
   const textElement = shape('text', context, rest);
   textElement.textContent = text;
   return textElement;
@@ -53,35 +38,26 @@ export function text(context, attributes) {
 
 export function path(context, attributes) {
   const {
-    d
+    d,
   } = attributes;
   return shape('path', context, {
     ...attributes,
-    d: d.flat().join('')
-  })
+    d: d.flat().join(''),
+  });
 }
 
 export function ring(context, attributes) {
   const {
-    cx,
-    cy,
-    r1,
-    r2,
-    ...styles
+    cx, cy, r1, r2, ...styles
   } = attributes;
-
-  const {
-    stroke,
-    strokeWidth,
-    fill
-  } = styles;
+  const { stroke, strokeWidth, fill } = styles;
   const defaultStrokeWidth = 1;
   const innerStroke = circle(context, {
     fill: 'transparent',
     stroke: stroke || fill,
     cx,
     cy,
-    r: r1
+    r: r1,
   });
   const ring = circle(context, {
     ...styles,
@@ -102,4 +78,3 @@ export function ring(context, attributes) {
   });
   return [innerStroke, ring, outerStroke];
 }
-
