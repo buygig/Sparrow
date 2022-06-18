@@ -28,4 +28,5 @@ jobs:
       - name: Run ci
         run: |
           npm install
+          npm run prepare
           npm run ci
