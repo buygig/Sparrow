@@ -6,11 +6,11 @@ export function createQuantile({ domain, range, ...rest }) {
   const step = (sortedDomain.length - 1) / (n + 1);
   const quantileDomain = new Array(n).fill(0).map((_, i) => {
     const index = (i + 1) * step;
-    const index0 = Math.floor(index);
-    const index1 = index0 + 1;
-    const value0 = sortedDomain[index0];
-    const value1 = sortedDomain[index1];
-    return value0 * (index1 - index) + value1 * (index - index0);
+    const i0 = Math.floor(i);
+    const i1 = i0 + 1;
+    const v0 = sortedDomain[i0];
+    const v1 = sortedDomain[i1];
+    return v0 * (i1 - index) + v1 * (index - i0);
   });
   return createThreshold({ domain: quantileDomain, range, ...rest });
 }
