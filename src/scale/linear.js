@@ -2,7 +2,7 @@ import {
   floor, normalize, tickStep, nice, ceil, ticks,
 } from './utils';
 
-export function createLiner({
+export function createLinear({
   domain: [d0, d1],
   range: [r0, r1],
   interpolate = interpolateNumber,
