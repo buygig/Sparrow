@@ -18,7 +18,7 @@ export function rect(context, attributes) {
   } = attributes;
   return shape('rect', context, {
     ...attributes,
-    width: Math.abd(width),
+    width: Math.abs(width),
     height: Math.abs(height),
     x: width > 0 ? x : x + width,
     y: height > 0 ? y : y + height,
@@ -42,7 +42,7 @@ export function path(context, attributes) {
   } = attributes;
   return shape('path', context, {
     ...attributes,
-    d: d.flat().join(''),
+    d: d.flat().join(' '),
   });
 }
 

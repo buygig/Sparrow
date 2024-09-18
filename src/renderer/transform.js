@@ -2,6 +2,7 @@ import { applyTransform, createSVGElement, mount } from './utils';
 
 export function transform(type, context, ...params) {
   const { group } = context;
+  console.log(group, 777);
   applyTransform(group, `${type}(${params.join(', ')})`);
 }
 

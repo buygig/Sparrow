@@ -2,7 +2,8 @@ import {
   floor, normalize, tickStep, nice, ceil, ticks,
 } from './utils';
 
-export function createLiner({
+// 线性映射
+export function createLinear({
   domain: [d0, d1],
   range: [r0, r1],
   interpolate = interpolateNumber,
@@ -26,4 +27,11 @@ export function createLiner({
 
 export function interpolateNumber(t, start, stop) {
   return start * (1 - t) + stop * t;
+}
+
+export function interpolateColor(t, start, stop) {
+  const r = interpolateNumber(t, start[0], stop[0]);
+  const g = interpolateNumber(t, start[1], stop[1]);
+  const b = interpolateNumber(t, start[2], stop[2]);
+  return `rgb(${r}, ${g}, ${b})`;
 }
