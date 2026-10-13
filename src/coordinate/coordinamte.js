@@ -1,9 +1,9 @@
 import { compose } from './utils';
 
 export function createCoordinate({
-  x, y, width, height,
+  x = 0, y = 0, width = 1, height = 1,
   transforms: coordinates = [],
-}) {
+} = {}) {
   const transforms = coordinates
     .map((coordinate) => coordinate({
       x, y, width, height,

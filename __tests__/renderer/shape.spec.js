@@ -3,6 +3,48 @@ import { shape } from '../../src/renderer/shape';
 import { createDiv, getAttributes, mount } from '../utils';
 
 describe('shapes', () => {
+  test('rect uses the SVG default position when coordinates are omitted', () => {
+    const renderer = createRenderer(100, 100);
+    const zero = renderer.rect({ width: 0, height: 0 });
+    expect(getAttributes(zero, ['x', 'y', 'width', 'height'])).toEqual({
+      x: '0', y: '0', width: '0', height: '0',
+    });
+    const negative = renderer.rect({ width: -10, height: -20 });
+    expect(getAttributes(negative, ['x', 'y', 'width', 'height'])).toEqual({
+      x: '-10', y: '-20', width: '10', height: '20',
+    });
+  });
+
+  test('optional attributes are omitted and zero values are retained', () => {
+    const renderer = createRenderer(100, 100);
+    const circle = renderer.circle({
+      cx: 0, cy: 0, r: 0, fill: undefined, stroke: null,
+    });
+    expect(circle.getAttribute('r')).toBe('0');
+    expect(circle.hasAttribute('fill')).toBe(false);
+    expect(circle.hasAttribute('stroke')).toBe(false);
+  });
+
+  test('path accepts a standard SVG path string', () => {
+    const renderer = createRenderer(100, 100);
+    const path = renderer.path({ d: 'M 0 0 L 10 10' });
+    expect(path.getAttribute('d')).toBe('M 0 0 L 10 10');
+  });
+
+  test('ring applies the requested border width to both edges, including zero', () => {
+    const renderer = createRenderer(100, 100);
+    const [inner, body, outer] = renderer.ring({
+      cx: 50, cy: 50, r1: 10, r2: 20, fill: 'red', stroke: 'black', strokeWidth: 2,
+    });
+    expect(inner.getAttribute('stroke-width')).toBe('2');
+    expect(body.getAttribute('stroke-width')).toBe('8');
+    expect(outer.getAttribute('stroke-width')).toBe('2');
+    const noBorder = renderer.ring({
+      cx: 50, cy: 50, r1: 10, r2: 20, strokeWidth: 0,
+    });
+    expect(noBorder.map((circle) => circle.getAttribute('stroke-width'))).toEqual(['0', '10', '0']);
+  });
+
   test('shape(name, context, attributes) creates SVG elements width specified attributes and mounts it to group.', () => {
     const renderer = createRenderer(600, 400);
     const context = { group: renderer.group() };

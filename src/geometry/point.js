@@ -1,8 +1,9 @@
 import { createChannel, createChannels } from './channel';
+import { createGeometry } from './geometry';
 import { circle } from './shape';
 import { channelStyles } from './style';
 
-export function point(renderer, I, scales, channels, directStyles, coordinate) {
+function render(renderer, I, scales, channels, directStyles, coordinate) {
   const defaults = {
     r: 3,
     fill: 'none',
@@ -11,7 +12,7 @@ export function point(renderer, I, scales, channels, directStyles, coordinate) {
 
   return Array.from(I, (i) => {
     const { r: dr, ...restDefaults } = defaults;
-    const r = R[i] || dr;
+    const r = R[i] ?? directStyles?.r ?? dr;
     return circle(renderer, coordinate, {
       ...restDefaults,
       ...directStyles,
@@ -23,6 +24,6 @@ export function point(renderer, I, scales, channels, directStyles, coordinate) {
   });
 }
 
-point.channels = () => createChannels({
+export const point = createGeometry(createChannels({
   r: createChannel({ name: 'r' }),
-});
+}), render);

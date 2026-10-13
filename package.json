@@ -2,15 +2,27 @@
   "name": "sparrow",
   "version": "1.0.0",
   "description": "小型图表库",
-  "main": "index.js",
+  "main": "lib/sparrow.js",
+  "module": "esm/sparrow.mjs",
+  "exports": {
+    ".": {
+      "import": "./esm/sparrow.mjs",
+      "require": "./lib/sparrow.js"
+    }
+  },
+  "browser": "dist/sparrow.js",
+  "files": ["lib", "esm", "dist"],
   "author": "Buygig",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint --fix",
+    "lint": "eslint src __tests__ examples scripts *.js --cache-location node_modules/.cache/eslint --max-warnings=0",
+    "lint:fix": "npm run lint -- --fix",
     "test": "jest --coverage",
-    "test-live": "cross-env DEBUG_MODE=1 jest --coverage",
+    "test:package": "node scripts/check-package.js",
+    "test-live": "cross-env DEBUG_MODE=1 jest --runner jest-electron/runner --env jest-electron/environment --coverage",
     "build": "rimraf -rf ./dist ./lib ./esm && rollup --config",
-    "ci": "run-s lint test build",
+    "ci": "run-s lint test build test:package",
+    "prepack": "run-s build test:package",
     "prepare": "husky install"
   },
   "devDependencies": {

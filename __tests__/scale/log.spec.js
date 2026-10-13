@@ -40,4 +40,12 @@ describe('createLog', () => {
     expect(ticks([10, 100], 2, 5)).toEqual([8, 16, 32, 64, 128]);
     expect(ticks([1, 1e5], 10, 5)).toEqual([1, 10, 100, 1000, 10000, 100000]);
   });
+
+  test('nice and ticks preserve descending domains.', () => {
+    const scale = createLog({ domain: [50, 10], range: [0, 1], base: 2 });
+    scale.nice();
+    expect(scale(64)).toBe(0);
+    expect(scale(8)).toBe(1);
+    expect(scale.ticks(3)).toEqual([64, 32, 16, 8]);
+  });
 });

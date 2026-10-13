@@ -8,15 +8,17 @@ export function circle(renderer, coordinate, {
 }
 
 export function text(renderer, coordinate, {
-  x, y, text, rotate, ...styles
+  x, y, text, rotate = 0, ...styles
 }) {
   const [px, py] = coordinate([x, y]);
   renderer.save();
-  renderer.translate(px, py);
-  renderer.rotate(rotate);
-  const textElement = renderer.text({
-    text, x: 0, y: 0, ...styles,
-  });
-  renderer.restore();
-  return textElement;
+  try {
+    renderer.translate(px, py);
+    renderer.rotate(rotate);
+    return renderer.text({
+      text, x: 0, y: 0, ...styles,
+    });
+  } finally {
+    renderer.restore();
+  }
 }

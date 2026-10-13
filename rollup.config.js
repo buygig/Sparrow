@@ -6,16 +6,16 @@ export default {
   output: [
     {
       file: 'lib/sparrow.js', // 对于nodejs，打包成commonjs
-      fromat: 'cjs',
+      format: 'cjs',
     },
     {
-      file: 'esm/sparrow.js', // 浏览器，打包成ES module
-      fromat: 'es',
+      file: 'esm/sparrow.mjs', // ES module
+      format: 'es',
     },
     {
-      file: 'dist/sparrow.min.js', // 混合打包
+      file: 'dist/sparrow.js', // 浏览器全局 sp
       name: 'sp',
-      fromat: 'umd',
+      format: 'umd',
     },
   ],
   plugins: [

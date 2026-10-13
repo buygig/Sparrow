@@ -16,6 +16,7 @@ export function createLinear({
   scale.ticks = (tickCount) => ticks(d0, d1, tickCount);
   scale.nice = (tickCount) => {
     const step = tickStep(d0, d1, tickCount);
+    if (!Number.isFinite(step) || step <= 0) return;
     [d0, d1] = nice([d0, d1], {
       floor: (x) => floor(x, step),
       ceil: (x) => ceil(x, step),

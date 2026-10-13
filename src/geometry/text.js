@@ -23,8 +23,8 @@ function render(renderer, I, scales, values, directStyles, coordinate) {
     ...channelStyles(i, values),
     x: X[i],
     y: Y[i],
-    rotate: R[i] || defaults.rotate,
-    fontSize: FS[i] || defaults.fontSize,
+    rotate: R[i] ?? directStyles?.rotate ?? defaults.rotate,
+    fontSize: FS[i] ?? directStyles?.fontSize ?? defaults.fontSize,
     text: T[i],
   }));
 }

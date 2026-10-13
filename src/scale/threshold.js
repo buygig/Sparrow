@@ -1,7 +1,9 @@
 export function createThreshold({ domain, range }) {
-  const n = Math.min(domain.length, range.length - 1);
+  const n = Math.max(0, Math.min(domain.length, range.length - 1));
+  const thresholds = domain.slice(0, n);
   return (x) => {
-    const index = domain.findIndex((v) => x < v);
+    if (x === undefined || Number.isNaN(x)) return undefined;
+    const index = thresholds.findIndex((v) => x < v);
     return range[index === -1 ? n : index];
   };
 }

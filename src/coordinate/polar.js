@@ -7,8 +7,8 @@ import { curry } from './utils';
 function coordinate(transformOptions, canvasOptions) {
   const { width, height } = canvasOptions;
   const {
-    innerRadius, outerRadius, startAngle, endAngle,
-  } = transformOptions;
+    innerRadius = 0, outerRadius = 1, startAngle = 0, endAngle = Math.PI * 2,
+  } = transformOptions || {};
 
   const aspect = width / height;
   const sx = aspect > 1 ? 1 / aspect : 1;

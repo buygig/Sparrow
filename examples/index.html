@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sparrow · SVG 图表示例</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; padding: 48px 24px; font: 16px/1.6 system-ui, sans-serif; color: #243b53; background: #f3f6fa; }
+      main { max-width: 1040px; margin: auto; }
+      h1 { margin: 0; font-size: 36px; }
+      header p { margin: 8px 0 32px; color: #52667a; }
+      .charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 24px; }
+      section { padding: 24px; border: 1px solid #dce4ed; border-radius: 12px; background: white; }
+      h2 { margin: 0; font-size: 20px; }
+      section p { margin: 4px 0 20px; color: #52667a; font-size: 14px; }
+      svg { display: block; width: 100%; height: auto; overflow: visible; }
+      #error { padding: 20px; color: #8d2323; background: #fff1f1; }
+      footer { margin-top: 28px; color: #52667a; font-size: 14px; }
+      a { color: #2463b2; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Sparrow</h1>
+        <p>用比例尺、坐标变换和 SVG 标记组合图表。</p>
+      </header>
+      <p id="error" hidden>未找到构建产物，请在项目根目录运行 npm run build 后刷新页面。</p>
+      <div class="charts">
+        <section><h2>分类柱状图</h2><p>Band 比例尺划分区间，Linear 比例尺映射数值。</p><div id="bars"></div></section>
+        <section><h2>散点图</h2><p>归一化坐标通过 Cartesian 变换映射到画布。</p><div id="scatter"></div></section>
+        <section><h2>极坐标点图</h2><p>同一组数据组合 Polar 与 Cartesian 变换。</p><div id="polar"></div></section>
+      </div>
+      <footer>示例数据仅用于展示 API。<a href="../README.md">查看使用文档</a></footer>
+    </main>
+    <script src="../dist/sparrow.js"></script>
+    <script src="./charts.js"></script>
+  </body>
+</html>

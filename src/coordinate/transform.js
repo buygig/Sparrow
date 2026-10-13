@@ -1,6 +1,6 @@
 function transform(type, transformer) {
   transformer.type = () => type;
-  return transform;
+  return transformer;
 }
 
 export function translate(tx = 0, ty = 0) {

@@ -14,7 +14,7 @@ export function line(context, attributes) {
 
 export function rect(context, attributes) {
   const {
-    width, height, x, y,
+    width, height, x = 0, y = 0,
   } = attributes;
   return shape('rect', context, {
     ...attributes,
@@ -42,7 +42,7 @@ export function path(context, attributes) {
   } = attributes;
   return shape('path', context, {
     ...attributes,
-    d: d.flat().join(' '),
+    d: Array.isArray(d) ? d.flat().join(' ') : d,
   });
 }
 
@@ -50,18 +50,18 @@ export function ring(context, attributes) {
   const {
     cx, cy, r1, r2, ...styles
   } = attributes;
-  const { stroke, strokeWidth, fill } = styles;
-  const defaultStrokeWidth = 1;
+  const { stroke, strokeWidth = 1, fill } = styles;
   const innerStroke = circle(context, {
     fill: 'transparent',
     stroke: stroke || fill,
+    strokeWidth,
     cx,
     cy,
     r: r1,
   });
   const ring = circle(context, {
     ...styles,
-    strokeWidth: r2 - r1 - (strokeWidth || defaultStrokeWidth),
+    strokeWidth: Math.max(0, r2 - r1 - strokeWidth),
     stroke: fill,
     fill: 'transparent',
     cx,
